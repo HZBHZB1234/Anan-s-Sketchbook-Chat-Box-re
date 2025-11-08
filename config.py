@@ -20,6 +20,12 @@
 #    - 方向键：'up'、'down'、'left'、'right'
 HOTKEY= "enter"
 
+# 允许运行此程序的进程列表，只有当前最上层窗口属于这些进程时，热键才会生效
+# 例如: ["qq.exe", "weixin.exe"] 表示只在QQ和微信中生效
+# 留空列表 [] 表示在所有进程中生效
+# 此值为字符串列表
+ALLOWED_PROCESSES = ["qq.exe", "weixin.exe"]
+
 # 全选快捷键, 此按键并不会监听, 而是会作为模拟输入
 # 此值为字符串, 代表热键的键名, 格式同 HOTKEY
 SELECT_ALL_HOTKEY= "ctrl+a"

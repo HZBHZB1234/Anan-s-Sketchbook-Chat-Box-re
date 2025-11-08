@@ -5,11 +5,27 @@ import pyperclip
 import io
 from PIL import Image
 import win32clipboard
+import win32gui
+import win32process
+import psutil
 from typing import Optional
-from config import DELAY, FONT_FILE, BASEIMAGE_FILE, AUTO_SEND_IMAGE, AUTO_PASTE_IMAGE, BLOCK_HOTKEY, HOTKEY, SEND_HOTKEY,PASTE_HOTKEY,CUT_HOTKEY,SELECT_ALL_HOTKEY,TEXT_BOX_TOPLEFT,IMAGE_BOX_BOTTOMRIGHT,BASE_OVERLAY_FILE,USE_BASE_OVERLAY
+from config import DELAY, FONT_FILE, BASEIMAGE_FILE, AUTO_SEND_IMAGE, AUTO_PASTE_IMAGE, BLOCK_HOTKEY, HOTKEY, SEND_HOTKEY,PASTE_HOTKEY,CUT_HOTKEY,SELECT_ALL_HOTKEY,TEXT_BOX_TOPLEFT,IMAGE_BOX_BOTTOMRIGHT,BASE_OVERLAY_FILE,USE_BASE_OVERLAY, ALLOWED_PROCESSES
 
 from text_fit_draw import draw_text_auto
 from image_fit_paste import paste_image_auto
+
+def get_foreground_window_process_name():
+    """
+    获取当前前台窗口的进程名称
+    """
+    try:
+        hwnd = win32gui.GetForegroundWindow()
+        _, pid = win32process.GetWindowThreadProcessId(hwnd)
+        process = psutil.Process(pid)
+        return process.name().lower()
+    except Exception as e:
+        print(f"无法获取当前进程名称: {e}")
+        return None
 
 def copy_png_bytes_to_clipboard(png_bytes: bytes):
     # 打开 PNG 字节为 Image
@@ -74,6 +90,16 @@ def try_get_image() -> Optional[Image.Image]:
     return None
 
 def Start():
+    # 检查是否设置了允许的进程列表，如果设置了，则检查当前进程是否在允许列表中
+    if ALLOWED_PROCESSES:
+        current_process = get_foreground_window_process_name()
+        if current_process is None or current_process not in [p.lower() for p in ALLOWED_PROCESSES]:
+            print(f"当前进程 {current_process} 不在允许列表中，跳过执行")
+            # 如果不是在允许的进程中，直接发送原始热键
+            if not BLOCK_HOTKEY:
+                keyboard.send(HOTKEY)
+            return
+
     print("Start generate...")
 
     text=cut_all_and_get_text()
@@ -148,6 +174,7 @@ ok=keyboard.add_hotkey(HOTKEY, Start, suppress=BLOCK_HOTKEY or HOTKEY==SEND_HOTK
 
 print("Starting...")
 print("Hot key bind: "+str(bool(ok)))
+print("Allowed processes: " + str(ALLOWED_PROCESSES))
 
 # 保持程序运行
 keyboard.wait()

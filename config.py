@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+from typing import Tuple, List, Dict
 # 本文件中包含了各种参数, 可以进行调整
 # 其中以"#"开头的注释为说明该参数的使用方法
 
@@ -102,7 +102,7 @@ LOGGING_LEVEL = "INFO"
 class Config(BaseModel):
     hotkey: str = HOTKEY
     """全局热键, 用于 keyboard 库"""
-    allowed_processes: list[str] = ALLOWED_PROCESSES
+    allowed_processes: List[str] = ALLOWED_PROCESSES
     """允许的进程列表"""
     select_all_hotkey: str = SELECT_ALL_HOTKEY
     """全选快捷键"""
@@ -118,13 +118,13 @@ class Config(BaseModel):
     """操作延时（秒）"""
     font_file: str = FONT_FILE
     """字体文件路径"""
-    baseimage_mapping: dict[str, str] = BASEIMAGE_MAPPING
+    baseimage_mapping: Dict[str, str] = BASEIMAGE_MAPPING
     """差分表情映射字典"""
     baseimage_file: str = BASEIMAGE_FILE
     """默认底图文件路径"""
-    text_box_topleft: tuple[int, int] = TEXT_BOX_TOPLEFT
+    text_box_topleft: Tuple[int, int] = TEXT_BOX_TOPLEFT
     """文本框左上角坐标"""
-    image_box_bottomright: tuple[int, int] = IMAGE_BOX_BOTTOMRIGHT
+    image_box_bottomright: Tuple[int, int] = IMAGE_BOX_BOTTOMRIGHT
     """文本框右下角坐标"""
     base_overlay_file: str = BASE_OVERLAY_FILE
     """底图置顶图层文件路径"""

@@ -64,11 +64,11 @@ class AnanSketchbookUI:
             draw = ImageDraw.Draw(icon)
             
             # 绘制一个简洁的笔记本图标
-            draw.rectangle([8, 8, 56, 56], fill=(30, 144, 255, 255), outline=(25, 25, 112, 255), width=2)  # 笔记本封面
+            draw.rectangle([8, 8, 56, 56], fill=(100, 180, 255, 255), outline=(70, 130, 180, 255), width=2)  # 笔记本封面
             draw.rectangle([15, 15, 20, 50], fill=(255, 255, 255, 200))  # 装订线
             
             # 添加代表"安安"的图案
-            draw.ellipse([30, 20, 50, 40], fill=(255, 182, 193, 200))  # 简单的头部轮廓
+            draw.ellipse([30, 20, 50, 40], fill=(255, 200, 220, 200))  # 简单的头部轮廓
             
             self.root.iconphoto(False, icon)
         except Exception as e:
@@ -88,7 +88,7 @@ class AnanSketchbookUI:
         self.create_header()
         
         # 创建notebook用于分隔配置和日志
-        self.notebook = ctk.CTkTabview(self.root, segmented_button_selected_color=("#3a7ebf", "#1f538d"))
+        self.notebook = ctk.CTkTabview(self.root, segmented_button_selected_color=("#50a5f5", "#2a75b0"))
         self.notebook.pack(fill="both", expand=True, padx=15, pady=(0, 15))
         
         # 添加标签页
@@ -106,7 +106,7 @@ class AnanSketchbookUI:
         
     def create_header(self):
         """创建顶部标题栏"""
-        header_frame = ctk.CTkFrame(self.root, height=60, corner_radius=0)
+        header_frame = ctk.CTkFrame(self.root, height=60, corner_radius=0, fg_color=("#3090f0", "#2070c0"))
         header_frame.pack(fill="x", padx=0, pady=0)
         header_frame.pack_propagate(False)
         
@@ -114,7 +114,7 @@ class AnanSketchbookUI:
             header_frame, 
             text="安安的素描本聊天框", 
             font=ctk.CTkFont(size=20, weight="bold"),
-            text_color=("gray10", "gray90")
+            text_color="white"
         )
         title_label.pack(side="left", padx=20, pady=10)
         
@@ -123,7 +123,7 @@ class AnanSketchbookUI:
             header_frame,
             text="v1.0",
             font=ctk.CTkFont(size=12),
-            text_color=("gray40", "gray60")
+            text_color="white"
         )
         version_label.pack(side="right", padx=20, pady=10)
         
@@ -133,7 +133,7 @@ class AnanSketchbookUI:
         config_canvas.pack(fill="both", expand=True, padx=10, pady=10)
         
         # 添加欢迎信息
-        welcome_frame = ctk.CTkFrame(config_canvas, corner_radius=10)
+        welcome_frame = ctk.CTkFrame(config_canvas, corner_radius=10, fg_color=("#e6f2ff", "#1a2c47"))
         welcome_frame.pack(fill="x", padx=5, pady=5)
         
         welcome_label = ctk.CTkLabel(
@@ -141,7 +141,8 @@ class AnanSketchbookUI:
             text="欢迎使用安安的素描本聊天框！\n在这里配置您的个性化设置",
             font=self.header_font,
             wraplength=500,
-            justify="center"
+            justify="center",
+            text_color=("#1a3d70", "#c0ddf5")
         )
         welcome_label.pack(pady=15)
         
@@ -149,7 +150,7 @@ class AnanSketchbookUI:
         main_config_frame = ctk.CTkFrame(config_canvas, corner_radius=10)
         main_config_frame.pack(fill="x", padx=5, pady=10)
         
-        ctk.CTkLabel(main_config_frame, text="基础设置", font=self.header_font).pack(pady=(15, 10))
+        ctk.CTkLabel(main_config_frame, text="基础设置", font=self.header_font, text_color=("#205090", "#60a0f0")).pack(pady=(15, 10))
         
         # 热键配置
         hotkey_frame = ctk.CTkFrame(main_config_frame, corner_radius=8)
@@ -171,7 +172,7 @@ class AnanSketchbookUI:
         coord_frame = ctk.CTkFrame(config_canvas, corner_radius=10)
         coord_frame.pack(fill="x", padx=5, pady=10)
         
-        ctk.CTkLabel(coord_frame, text="坐标设置", font=self.header_font).pack(pady=(15, 10))
+        ctk.CTkLabel(coord_frame, text="坐标设置", font=self.header_font, text_color=("#205090", "#60a0f0")).pack(pady=(15, 10))
         
         # 文本框坐标说明
         text_coord_desc = ctk.CTkLabel(
@@ -208,7 +209,7 @@ class AnanSketchbookUI:
         switches_frame = ctk.CTkFrame(config_canvas, corner_radius=10)
         switches_frame.pack(fill="x", padx=5, pady=10)
         
-        ctk.CTkLabel(switches_frame, text="功能开关", font=self.header_font).pack(pady=(15, 10))
+        ctk.CTkLabel(switches_frame, text="功能开关", font=self.header_font, text_color=("#205090", "#60a0f0")).pack(pady=(15, 10))
         
         # 自动粘贴开关
         self.auto_paste_var = ctk.BooleanVar(value=self.app.config.auto_paste_image)
@@ -218,7 +219,8 @@ class AnanSketchbookUI:
             variable=self.auto_paste_var,
             font=self.custom_font,
             onvalue=True,
-            offvalue=False
+            offvalue=False,
+            progress_color=("#3090f0", "#50a5f5")
         )
         auto_paste_switch.pack(anchor="w", pady=5, padx=20)
         
@@ -230,7 +232,8 @@ class AnanSketchbookUI:
             variable=self.auto_send_var,
             font=self.custom_font,
             onvalue=True,
-            offvalue=False
+            offvalue=False,
+            progress_color=("#3090f0", "#50a5f5")
         )
         auto_send_switch.pack(anchor="w", pady=5, padx=20)
         
@@ -242,7 +245,8 @@ class AnanSketchbookUI:
             variable=self.block_hotkey_var,
             font=self.custom_font,
             onvalue=True,
-            offvalue=False
+            offvalue=False,
+            progress_color=("#3090f0", "#50a5f5")
         )
         block_hotkey_switch.pack(anchor="w", pady=5, padx=20)
         
@@ -256,7 +260,9 @@ class AnanSketchbookUI:
             command=self.save_config, 
             font=self.custom_font,
             corner_radius=8,
-            height=35
+            height=35,
+            fg_color=("#3090f0", "#2070c0"),
+            hover_color=("#2070c0", "#105090")
         ).pack(side="left", padx=(20, 10), pady=15)
         
         ctk.CTkButton(
@@ -265,7 +271,20 @@ class AnanSketchbookUI:
             command=self.apply_config, 
             font=self.custom_font,
             corner_radius=8,
-            height=35
+            height=35,
+            fg_color=("#3090f0", "#2070c0"),
+            hover_color=("#2070c0", "#105090")
+        ).pack(side="left", padx=10, pady=15)
+        
+        ctk.CTkButton(
+            button_frame, 
+            text="高级配置", 
+            command=self.open_advanced_config, 
+            font=self.custom_font,
+            corner_radius=8,
+            height=35,
+            fg_color=("#3090f0", "#2070c0"),
+            hover_color=("#2070c0", "#105090")
         ).pack(side="left", padx=10, pady=15)
         
         ctk.CTkButton(
@@ -275,9 +294,301 @@ class AnanSketchbookUI:
             font=self.custom_font,
             corner_radius=8,
             height=35,
-            fg_color=("gray60", "gray20"),
-            hover_color=("gray50", "gray30")
+            fg_color=("#60a0f0", "#3070c0"),
+            hover_color=("#5090e0", "#2060a0")
         ).pack(side="right", padx=(10, 20), pady=15)
+        
+    def open_advanced_config(self):
+        """打开高级配置窗口"""
+        # 创建高级配置窗口
+        self.advanced_window = ctk.CTkToplevel(self.root)
+        self.advanced_window.title("高级配置")
+        self.advanced_window.geometry("600x500")
+        self.advanced_window.resizable(True, True)
+        self.advanced_window.transient(self.root)  # 设置为父窗口的临时窗口
+        self.advanced_window.grab_set()  # 模态窗口
+        
+        # 居中显示
+        self.center_window(self.advanced_window, 600, 500)
+        
+        # 创建标签页控件
+        advanced_notebook = ctk.CTkTabview(self.advanced_window)
+        advanced_notebook.pack(fill="both", expand=True, padx=15, pady=15)
+        
+        # 添加各个配置标签页
+        general_tab = advanced_notebook.add("通用设置")
+        shortcuts_tab = advanced_notebook.add("快捷键设置")
+        process_tab = advanced_notebook.add("进程设置")
+        emotions_tab = advanced_notebook.add("表情设置")
+        ui_tab = advanced_notebook.add("界面设置")
+        
+        # 设置各个配置标签页
+        self.setup_general_advanced_config(general_tab)
+        self.setup_shortcuts_advanced_config(shortcuts_tab)
+        self.setup_process_advanced_config(process_tab)
+        self.setup_emotions_advanced_config(emotions_tab)
+        self.setup_ui_advanced_config(ui_tab)
+        
+        # 创建按钮框架
+        button_frame = ctk.CTkFrame(self.advanced_window, corner_radius=10)
+        button_frame.pack(fill="x", padx=15, pady=(0, 15))
+        
+        # 添加按钮
+        ctk.CTkButton(
+            button_frame,
+            text="保存并关闭",
+            command=self.save_advanced_config_and_close,
+            font=self.custom_font,
+            corner_radius=8,
+            height=35,
+            fg_color=("#3090f0", "#2070c0"),
+            hover_color=("#2070c0", "#105090")
+        ).pack(side="left", padx=10, pady=15)
+        
+        ctk.CTkButton(
+            button_frame,
+            text="应用配置",
+            command=self.apply_advanced_config,
+            font=self.custom_font,
+            corner_radius=8,
+            height=35,
+            fg_color=("#3090f0", "#2070c0"),
+            hover_color=("#2070c0", "#105090")
+        ).pack(side="left", padx=10, pady=15)
+        
+        ctk.CTkButton(
+            button_frame,
+            text="取消",
+            command=self.advanced_window.destroy,
+            font=self.custom_font,
+            corner_radius=8,
+            height=35,
+            fg_color="transparent",
+            border_width=2,
+            border_color=("#60a0f0", "#3070c0"),
+            hover_color=("#e6f2ff", "#1a2c47"),
+            text_color=("#205090", "#c0ddf5")
+        ).pack(side="right", padx=10, pady=15)
+        
+    def center_window(self, window, width, height):
+        """居中显示窗口"""
+        # 获取屏幕尺寸
+        screen_width = window.winfo_screenwidth()
+        screen_height = window.winfo_screenheight()
+        
+        # 计算居中位置
+        x = (screen_width // 2) - (width // 2)
+        y = (screen_height // 2) - (height // 2)
+        
+        # 设置窗口位置和大小
+        window.geometry(f'{width}x{height}+{x}+{y}')
+        
+    def setup_general_advanced_config(self, parent):
+        """设置通用配置"""
+        # 创建滚动框架
+        scrollable_frame = ctk.CTkScrollableFrame(parent, corner_radius=10)
+        scrollable_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # 字体文件配置
+        font_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        font_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(font_frame, text="字体文件:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_font_file_var = ctk.StringVar(value=self.app.config.font_file)
+        font_entry = ctk.CTkEntry(font_frame, textvariable=self.adv_font_file_var, width=300, font=self.custom_font)
+        font_entry.pack(side="right", padx=10, pady=10)
+        
+        # 底图文件配置
+        baseimage_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        baseimage_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(baseimage_frame, text="默认底图文件:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_baseimage_file_var = ctk.StringVar(value=self.app.config.baseimage_file)
+        baseimage_entry = ctk.CTkEntry(baseimage_frame, textvariable=self.adv_baseimage_file_var, width=300, font=self.custom_font)
+        baseimage_entry.pack(side="right", padx=10, pady=10)
+        
+        # 置顶图层文件配置
+        overlay_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        overlay_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(overlay_frame, text="置顶图层文件:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_base_overlay_file_var = ctk.StringVar(value=self.app.config.base_overlay_file)
+        overlay_entry = ctk.CTkEntry(overlay_frame, textvariable=self.adv_base_overlay_file_var, width=300, font=self.custom_font)
+        overlay_entry.pack(side="right", padx=10, pady=10)
+        
+        # 日志等级配置
+        log_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        log_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(log_frame, text="日志等级:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_logging_level_var = ctk.StringVar(value=self.app.config.logging_level)
+        log_levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
+        log_option = ctk.CTkOptionMenu(log_frame, values=log_levels, variable=self.adv_logging_level_var, font=self.custom_font,
+                                       fg_color=("#e6f2ff", "#1a2c47"), button_color=("#3090f0", "#2070c0"),
+                                       button_hover_color=("#2070c0", "#105090"), text_color=("#1a3d70", "#c0ddf5"))
+        log_option.pack(side="right", padx=10, pady=10)
+        
+        # 使用置顶图层开关
+        overlay_switch_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        overlay_switch_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(overlay_switch_frame, text="使用置顶图层:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_use_base_overlay_var = ctk.BooleanVar(value=self.app.config.use_base_overlay)
+        overlay_switch = ctk.CTkSwitch(
+            overlay_switch_frame,
+            text="",
+            variable=self.adv_use_base_overlay_var,
+            onvalue=True,
+            offvalue=False,
+            progress_color=("#3090f0", "#50a5f5")
+        )
+        overlay_switch.pack(side="right", padx=10, pady=10)
+        
+    def setup_shortcuts_advanced_config(self, parent):
+        """设置快捷键配置"""
+        # 创建滚动框架
+        scrollable_frame = ctk.CTkScrollableFrame(parent, corner_radius=10)
+        scrollable_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # 全选快捷键配置
+        select_all_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        select_all_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(select_all_frame, text="全选快捷键:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_select_all_hotkey_var = ctk.StringVar(value=self.app.config.select_all_hotkey)
+        select_all_entry = ctk.CTkEntry(select_all_frame, textvariable=self.adv_select_all_hotkey_var, width=200, font=self.custom_font)
+        select_all_entry.pack(side="right", padx=10, pady=10)
+        
+        # 剪切快捷键配置
+        cut_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        cut_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(cut_frame, text="剪切快捷键:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_cut_hotkey_var = ctk.StringVar(value=self.app.config.cut_hotkey)
+        cut_entry = ctk.CTkEntry(cut_frame, textvariable=self.adv_cut_hotkey_var, width=200, font=self.custom_font)
+        cut_entry.pack(side="right", padx=10, pady=10)
+        
+        # 黏贴快捷键配置
+        paste_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        paste_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(paste_frame, text="黏贴快捷键:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_paste_hotkey_var = ctk.StringVar(value=self.app.config.paste_hotkey)
+        paste_entry = ctk.CTkEntry(paste_frame, textvariable=self.adv_paste_hotkey_var, width=200, font=self.custom_font)
+        paste_entry.pack(side="right", padx=10, pady=10)
+        
+        # 发送快捷键配置
+        send_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        send_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(send_frame, text="发送快捷键:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_send_hotkey_var = ctk.StringVar(value=self.app.config.send_hotkey)
+        send_entry = ctk.CTkEntry(send_frame, textvariable=self.adv_send_hotkey_var, width=200, font=self.custom_font)
+        send_entry.pack(side="right", padx=10, pady=10)
+        
+    def setup_process_advanced_config(self, parent):
+        """设置进程配置"""
+        frame = ctk.CTkFrame(parent, corner_radius=10)
+        frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        ctk.CTkLabel(frame, text="允许运行此程序的进程列表", font=self.header_font, text_color=("#205090", "#60a0f0")).pack(pady=10)
+        ctk.CTkLabel(frame, text="每行输入一个进程名称，例如: qq.exe", font=("Microsoft YaHei", 10)).pack()
+        
+        # 创建文本框用于输入进程列表
+        self.adv_allowed_processes_text = ctk.CTkTextbox(frame, font=("Microsoft YaHei", 10), height=200,
+                                                         fg_color=("#e6f2ff", "#1a2c47"), text_color=("#1a3d70", "#c0ddf5"))
+        self.adv_allowed_processes_text.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # 填充当前配置
+        processes_text = "\n".join(self.app.config.allowed_processes)
+        self.adv_allowed_processes_text.insert("0.0", processes_text)
+        
+    def setup_emotions_advanced_config(self, parent):
+        """设置表情配置"""
+        # 创建滚动框架
+        scrollable_frame = ctk.CTkScrollableFrame(parent, corner_radius=10)
+        scrollable_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        ctk.CTkLabel(scrollable_frame, text="表情切换快捷键映射", font=self.header_font, text_color=("#205090", "#60a0f0")).pack(pady=10)
+        ctk.CTkLabel(scrollable_frame, text="格式: 快捷键=表情标签，每行一个", font=("Microsoft YaHei", 10)).pack()
+        
+        # 创建文本框用于输入表情映射
+        self.adv_emotion_switch_text = ctk.CTkTextbox(scrollable_frame, font=("Microsoft YaHei", 10), height=300,
+                                                      fg_color=("#e6f2ff", "#1a2c47"), text_color=("#1a3d70", "#c0ddf5"))
+        self.adv_emotion_switch_text.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # 填充当前配置
+        emotion_lines = []
+        for hotkey, emotion in self.app.config.emotion_switch_hotkeys.items():
+            emotion_lines.append(f"{hotkey}={emotion}")
+        emotion_text = "\n".join(emotion_lines)
+        self.adv_emotion_switch_text.insert("0.0", emotion_text)
+        
+    def setup_ui_advanced_config(self, parent):
+        """设置界面配置"""
+        # 创建滚动框架
+        scrollable_frame = ctk.CTkScrollableFrame(parent, corner_radius=10)
+        scrollable_frame.pack(fill="both", expand=True, padx=10, pady=10)
+        
+        # 字体家族配置
+        font_family_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        font_family_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(font_family_frame, text="字体家族:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_ui_font_family_var = ctk.StringVar(value=self.app.config.ui_settings.font_family)
+        font_family_entry = ctk.CTkEntry(font_family_frame, textvariable=self.adv_ui_font_family_var, width=200, font=self.custom_font)
+        font_family_entry.pack(side="right", padx=10, pady=10)
+        
+        # 字体大小配置
+        font_size_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        font_size_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(font_size_frame, text="字体大小:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_ui_font_size_var = ctk.IntVar(value=self.app.config.ui_settings.font_size)
+        font_size_entry = ctk.CTkEntry(font_size_frame, textvariable=self.adv_ui_font_size_var, width=200, font=self.custom_font)
+        font_size_entry.pack(side="right", padx=10, pady=10)
+        
+        # 标题字体大小配置
+        title_font_size_frame = ctk.CTkFrame(scrollable_frame, corner_radius=8)
+        title_font_size_frame.pack(fill="x", pady=5, padx=5)
+        ctk.CTkLabel(title_font_size_frame, text="标题字体大小:", font=self.custom_font).pack(side="left", padx=10, pady=10)
+        self.adv_ui_title_font_size_var = ctk.IntVar(value=self.app.config.ui_settings.title_font_size)
+        title_font_size_entry = ctk.CTkEntry(title_font_size_frame, textvariable=self.adv_ui_title_font_size_var, width=200, font=self.custom_font)
+        title_font_size_entry.pack(side="right", padx=10, pady=10)
+        
+    def save_advanced_config_and_close(self):
+        """保存高级配置并关闭窗口"""
+        self.apply_advanced_config()
+        self.advanced_window.destroy()
+        
+    def apply_advanced_config(self):
+        """应用高级配置"""
+        try:
+            # 更新通用配置
+            self.app.config.font_file = self.adv_font_file_var.get()
+            self.app.config.baseimage_file = self.adv_baseimage_file_var.get()
+            self.app.config.base_overlay_file = self.adv_base_overlay_file_var.get()
+            self.app.config.logging_level = self.adv_logging_level_var.get()
+            self.app.config.use_base_overlay = self.adv_use_base_overlay_var.get()
+            
+            # 更新快捷键配置
+            self.app.config.select_all_hotkey = self.adv_select_all_hotkey_var.get()
+            self.app.config.cut_hotkey = self.adv_cut_hotkey_var.get()
+            self.app.config.paste_hotkey = self.adv_paste_hotkey_var.get()
+            self.app.config.send_hotkey = self.adv_send_hotkey_var.get()
+            
+            # 更新进程配置
+            processes_text = self.adv_allowed_processes_text.get("0.0", "end").strip()
+            self.app.config.allowed_processes = [p.strip() for p in processes_text.split("\n") if p.strip()]
+            
+            # 更新表情配置
+            emotion_text = self.adv_emotion_switch_text.get("0.0", "end").strip()
+            emotion_dict = {}
+            for line in emotion_text.split("\n"):
+                if "=" in line:
+                    hotkey, emotion = line.split("=", 1)
+                    emotion_dict[hotkey.strip()] = emotion.strip()
+            self.app.config.emotion_switch_hotkeys = emotion_dict
+            
+            # 更新界面配置
+            self.app.config.ui_settings.font_family = self.adv_ui_font_family_var.get()
+            self.app.config.ui_settings.font_size = self.adv_ui_font_size_var.get()
+            self.app.config.ui_settings.title_font_size = self.adv_ui_title_font_size_var.get()
+            
+            # 显示成功消息
+            messagebox.showinfo("成功", "高级配置已应用")
+            
+        except Exception as e:
+            messagebox.showerror("错误", f"应用配置时出错: {str(e)}")
         
     def setup_log_ui(self):
         # 日志显示区域
@@ -285,10 +596,10 @@ class AnanSketchbookUI:
         log_text_frame.pack(fill="both", expand=True, padx=10, pady=10)
         
         # 添加日志标题
-        log_header_frame = ctk.CTkFrame(log_text_frame, corner_radius=8)
+        log_header_frame = ctk.CTkFrame(log_text_frame, corner_radius=8, fg_color=("#e6f2ff", "#1a2c47"))
         log_header_frame.pack(fill="x", padx=10, pady=(10, 5))
         
-        ctk.CTkLabel(log_header_frame, text="运行日志", font=self.header_font).pack(side="left", padx=10, pady=10)
+        ctk.CTkLabel(log_header_frame, text="运行日志", font=self.header_font, text_color=("#205090", "#60a0f0")).pack(side="left", padx=10, pady=10)
         
         self.log_text = scrolledtext.ScrolledText(
             log_text_frame, 
@@ -311,7 +622,9 @@ class AnanSketchbookUI:
             command=self.clear_log, 
             font=self.custom_font,
             corner_radius=8,
-            height=35
+            height=35,
+            fg_color=("#3090f0", "#2070c0"),
+            hover_color=("#2070c0", "#105090")
         ).pack(side="left", padx=(20, 10), pady=15)
         
         ctk.CTkButton(
@@ -321,13 +634,13 @@ class AnanSketchbookUI:
             font=self.custom_font,
             corner_radius=8,
             height=35,
-            fg_color=("gray60", "gray20"),
-            hover_color=("gray50", "gray30")
+            fg_color=("#60a0f0", "#3070c0"),
+            hover_color=("#5090e0", "#2060a0")
         ).pack(side="right", padx=(10, 20), pady=15)
         
     def create_status_bar(self):
         """创建底部状态栏"""
-        self.status_frame = ctk.CTkFrame(self.root, height=30, corner_radius=0)
+        self.status_frame = ctk.CTkFrame(self.root, height=30, corner_radius=0, fg_color=("#e6f2ff", "#1a2c47"))
         self.status_frame.pack(fill="x", side="bottom", padx=0, pady=0)
         self.status_frame.pack_propagate(False)
         
@@ -335,7 +648,7 @@ class AnanSketchbookUI:
             self.status_frame, 
             text="就绪", 
             font=ctk.CTkFont(size=12),
-            text_color=("gray40", "gray60")
+            text_color=("#1a3d70", "#c0ddf5")
         )
         self.status_label.pack(side="left", padx=15, pady=5)
         
@@ -344,7 +657,7 @@ class AnanSketchbookUI:
             self.status_frame,
             text=f"热键: {self.app.config.hotkey}",
             font=ctk.CTkFont(size=12),
-            text_color=("gray40", "gray60")
+            text_color=("#1a3d70", "#c0ddf5")
         )
         hotkey_info.pack(side="right", padx=15, pady=5)
         
@@ -439,11 +752,11 @@ class AnanSketchbookUI:
         draw = ImageDraw.Draw(icon)
         
         # 绘制一个更精美的笔记本图标
-        draw.rectangle([8, 8, 56, 56], fill=(30, 144, 255), outline=(25, 25, 112), width=2)  # 笔记本封面
+        draw.rectangle([8, 8, 56, 56], fill=(100, 180, 255), outline=(70, 130, 180), width=2)  # 笔记本封面
         draw.rectangle([15, 15, 20, 50], fill=(255, 255, 255))  # 装订线
         
         # 添加代表"安安"的图案
-        draw.ellipse([30, 20, 50, 40], fill=(255, 182, 193))  # 头部
+        draw.ellipse([30, 20, 50, 40], fill=(255, 200, 220))  # 头部
         draw.ellipse([35, 25, 38, 28], fill=(0, 0, 0))  # 眼睛
         draw.ellipse([42, 25, 45, 28], fill=(0, 0, 0))  # 眼睛
         
@@ -498,7 +811,7 @@ class AnanSketchbookUI:
         
         desc_label = ctk.CTkLabel(
             dialog, 
-            text="选择“隐藏”可以最小化到系统托盘继续运行", 
+            text="选择\"隐藏\"可以最小化到系统托盘继续运行", 
             font=ctk.CTkFont(size=12),
             text_color=("gray40", "gray60")
         )
@@ -529,8 +842,8 @@ class AnanSketchbookUI:
             button_frame, 
             text="隐藏到托盘", 
             command=hide_window,
-            fg_color=("gray60", "gray20"),
-            hover_color=("gray50", "gray30"),
+            fg_color=("#60a0f0", "#3070c0"),
+            hover_color=("#5090e0", "#2060a0"),
             width=80
         )
         hide_btn.pack(side="left", padx=5)
@@ -549,6 +862,8 @@ class AnanSketchbookUI:
             button_frame, 
             text="取消", 
             command=cancel_action,
+            fg_color=("#3090f0", "#2070c0"),
+            hover_color=("#2070c0", "#105090"),
             width=80
         )
         cancel_btn.pack(side="left", padx=5)

@@ -4,6 +4,13 @@ from typing import Dict, Any, Tuple, List
 from pydantic import BaseModel
 
 
+class UISettings(BaseModel):
+    """UI设置模型类"""
+    font_family: str = "Microsoft YaHei"
+    font_size: int = 10
+    title_font_size: int = 12
+
+
 class Config(BaseModel):
     """配置模型类"""
     hotkey: str = "enter"
@@ -48,6 +55,8 @@ class Config(BaseModel):
         "alt+1": "#普通#"
     }
     """表情切换快捷键映射"""
+    ui_settings: UISettings = UISettings()
+    """UI设置"""
 
     class Config:
         arbitrary_types_allowed = True
@@ -77,6 +86,10 @@ def load_config(config_file: str = "config.yaml") -> Config:
     
     if 'image_box_bottomright' in config_data and isinstance(config_data['image_box_bottomright'], list):
         config_data['image_box_bottomright'] = tuple(config_data['image_box_bottomright'])
+    
+    # 处理UI设置
+    if 'ui_settings' in config_data:
+        config_data['ui_settings'] = UISettings(**config_data['ui_settings'])
     
     # 创建并返回配置对象
     return Config(**config_data)

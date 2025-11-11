@@ -5,3 +5,4 @@ psutil>=6.0.0
 pyperclip>=1.11.0
 pywin32>=306
 PyYAML>=6.0.1
+pystray>=0.19.4

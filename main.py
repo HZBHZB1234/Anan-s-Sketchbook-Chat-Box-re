@@ -2,6 +2,7 @@
 import io
 import logging
 import time
+import ctypes
 from typing import Optional, Tuple
 
 import keyboard
@@ -23,6 +24,12 @@ import customtkinter as ctk
 
 class AnanSketchbookApp:
     def __init__(self):
+        # 启用高DPI支持
+        try:
+            ctypes.windll.shcore.SetProcessDpiAwareness(1)
+        except:
+            pass
+            
         self.config = load_config()
         self.setup_logging()
         

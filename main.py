@@ -42,6 +42,13 @@ class AnanSketchbookApp:
         # 初始化UI
         self.ui = AnanSketchbookUI(self)
         
+        # 设置窗口大小
+        ui_settings = self.config.ui_settings
+        self.ui.root.geometry(f"{ui_settings.window_width}x{ui_settings.window_height}")
+        
+        # 设置主题
+        ctk.set_default_color_theme(ui_settings.theme)
+        
         # 注册表情切换快捷键
         self.register_emotion_switch_hotkeys()
         
@@ -60,6 +67,7 @@ class AnanSketchbookApp:
         self.ui.append_log("允许的进程: " + str(self.config.allowed_processes))
         self.ui.append_log("键盘监听已启动，按下 {} 以生成图片".format(self.config.hotkey))
         self.ui.append_log("表情切换快捷键已注册: " + str(self.config.emotion_switch_hotkeys))
+        self.ui.update_status("就绪")
 
     def setup_logging(self):
         """设置日志记录"""
@@ -82,6 +90,7 @@ class AnanSketchbookApp:
         )
         
         self.ui.append_log(f"热键已重新绑定为: {self.config.hotkey}")
+        self.ui.update_status(f"热键已更新为: {self.config.hotkey}")
 
     def register_emotion_switch_hotkeys(self):
         """注册表情切换快捷键"""
@@ -89,6 +98,7 @@ class AnanSketchbookApp:
             self.current_emotion = emotion_tag
             self.last_used_image_file = self.config.baseimage_mapping.get(emotion_tag, self.config.baseimage_file)
             self.ui.append_log(f"已切换到表情: {emotion_tag} ({self.last_used_image_file})")
+            self.ui.update_status(f"已切换到表情: {emotion_tag}")
         
         for hotkey, emotion_tag in self.config.emotion_switch_hotkeys.items():
             # 为每个表情快捷键绑定切换函数

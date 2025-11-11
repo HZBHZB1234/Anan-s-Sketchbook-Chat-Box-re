@@ -71,6 +71,12 @@ logging_level: INFO
 # 表情切换快捷键映射，使用alt+数字键切换对应的表情
 emotion_switch_hotkeys:
   alt+1: '#普通#'
+  alt+2: '#开心#'
+  alt+3: '#生气#'
+  alt+4: '#无语#'
+  alt+5: '#脸红#'
+  alt+6: '#病娇#'
+
 ui_settings:
   font_family: Microsoft YaHei
   font_size: 10

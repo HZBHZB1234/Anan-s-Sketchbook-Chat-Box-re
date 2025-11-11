@@ -9,6 +9,9 @@ class UISettings(BaseModel):
     font_family: str = "Microsoft YaHei"
     font_size: int = 10
     title_font_size: int = 12
+    window_width: int = 650
+    window_height: int = 500
+    theme: str = "blue"  # 可选: blue, green, dark-blue
 
 
 class Config(BaseModel):

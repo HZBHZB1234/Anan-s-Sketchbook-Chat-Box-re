@@ -132,3 +132,4 @@ python官方下载地址：https://www.python.org/downloads/
 - [Pillow](https://python-pillow.org/) - Python图像处理库
 - [Pyperclip](https://github.com/asweigart/pyperclip) - 跨平台剪贴板操作库
 - [CustomTkinter](https://github.com/TomSchimansky/CustomTkinter) - 现代化的Python Tkinter界面库
+如需在 macOS 或 Linux 上使用，请参考 [跨平台分支](https://github.com/Sheyiyuan/Anan-s-Sketchbook-Chat-Box)。
